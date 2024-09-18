@@ -133,19 +133,25 @@ class Dynamic_Array(Array):
               self.size=0
               self.dynamic_arra=[]
               
-       def dynamic_create(self,size:int):
+       def dynamic_create(self,size:int=None):
             self.size=size
             self.array=[]
-            try:
-                if self.size<=0:
-                        raise ValueError("Minimum size atleast 1 ")
-               
-            except ValueError as size_error:
-                print(size_error)
-                
-            else:          
-                self.dynamic_array=[-1]*self.size 
-                        
+            #If the user doesn't define any size dynamic array will create a by default 5 empty slots.
+            #Why choosing 5 slots just a prime number. for desgning the HASHMAP
+            if self.size==None:
+                      self.dynamic_array=[-1]*5
+                      self.size=len(self.dynamic_array)
+            else:
+                  try:
+                        if self.size<=0:
+                              raise ValueError("Minimum size atleast 1 ")
+                  
+                  except ValueError as size_error:
+                        print(size_error)
+                  
+                  else:   
+                  #If the user defines size then creates the desired size
+                        self.dynamic_array=[-1]*self.size
 
        def resize(self):
               newsize=self.size*2
@@ -155,7 +161,6 @@ class Dynamic_Array(Array):
                      self.new_rezise_array[temp_index]=self.dynamic_array[temp_index]
               self.dynamic_array=self.new_rezise_array
               self.size=len(self.dynamic_array)
-              #print(newsize)
               return self.dynamic_array,self.size
        
        def dynamic_shrink(self):
@@ -182,7 +187,6 @@ class Dynamic_Array(Array):
                         raise ValueError("Arrays is full resizing array......")
         
                 except ValueError as resizing_trigger:
-                    print(resizing_trigger)
                     self.resize()
 
                 self.dynamic_array[self.dynamic_pointer]=self.value
@@ -202,7 +206,6 @@ class Dynamic_Array(Array):
                                  raise ValueError("Arrays is full resizing array......")
         
                         except ValueError as resizing_trigger:
-                              print(resizing_trigger)
                               self.resize()
                         finally:
                             counter=self.dynamic_pointer       
